@@ -4,19 +4,32 @@ GEM
     builder (3.2.2)
     ci_reporter (2.0.0)
       builder (>= 2.1.2)
-    ci_reporter_minitest (1.0.0)
+    ci_reporter_rspec (1.0.0)
       ci_reporter (~> 2.0)
-      minitest (~> 5.0)
-    minitest (5.9.1)
+      rspec (>= 2.14, < 4)
+    diff-lcs (1.2.5)
     rake (10.5.0)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  ci_reporter_minitest
-  minitest
+  ci_reporter_rspec
   rake (~> 10.5.0)
+  rspec
 
 BUNDLED WITH
    1.13.5

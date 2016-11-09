@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'minitest'
-gem 'ci_reporter_minitest'
+gem 'rspec'
+gem 'ci_reporter_rspec'
 gem 'rake', "~> 10.5.0"

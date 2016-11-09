@@ -1,11 +1,9 @@
-require "rake/testtask"
-require "ci/reporter/rake/minitest"
+require 'rake'
+require 'rspec/core/rake_task'
+require 'ci/reporter/rake/rspec'
 
-Rake::TestTask.new(:test) do |task|
-  task.libs = ["test",
-               "lib"]
-
-  task.pattern = "**/*_test.rb"
+RSpec::Core::RakeTask.new(:test) do |task|
+  task.pattern = "spec/**/*_spec.rb"
 end
 
-task :ci => ['ci:setup:minitest', 'test']
+task :ci => ['ci:setup:rspec', 'test']
