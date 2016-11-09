@@ -6,4 +6,6 @@ RSpec::Core::RakeTask.new(:test) do |task|
   task.pattern = "spec/**/*_spec.rb"
 end
 
+task :default => [:test]
+
 task :ci => ['ci:setup:rspec', 'test']
