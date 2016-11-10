@@ -1,6 +1,0 @@
-{
-  "verification" : {
-    "testNamePatterns" : [ "*Test" ],
-    "pathPatterns" : [ "**test/verify/*_test.rb" ]
-  }
-}
