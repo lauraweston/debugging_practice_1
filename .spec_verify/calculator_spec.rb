@@ -1,3 +1,7 @@
+# These tests are to verify that the test is completed correctly Don't
+# change them.  If they are changed then your submission will be
+# marked as incorrect.
+
 require 'spec_helper'
 
 describe Calculator do
