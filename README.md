@@ -10,7 +10,9 @@ If you submit a solution to this exercise, Makers Academy will be able to use it
 
 The goal is to get all the tests in the `spec/` directory passing.
 
-1. Clone this repo to your machine.
+1. Fork this repo.
+
+2. Clone your fork to your machine.
 
 2. Run the tests by running `rspec` in the root of the repo.
 
