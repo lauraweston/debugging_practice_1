@@ -4,23 +4,22 @@ describe CommandLineInterface do
   let(:stdin) { double(:stdin) }
   let(:stdout) { double(:stdout) }
   let(:blackjack) { double(:blackjack) }
-  let(:blackjack_hand) { double(:blackjack_hand) }
+  let(:hand) { double(:hand) }
   let(:blackjack_class) { double(:blackjack_class,
                                  new: blackjack) }
-  let(:blackjack_hand_class) { double(:blackjack_hand_class,
-                                      new: blackjack_hand) }
+  let(:hand_class) { double(:hand_class, new: hand) }
 
   describe "::new" do
     it "creates a new Blackjack game with three players" do
       allow(stdout).to receive(:puts)
       allow(stdin).to receive(:gets).and_return(3)
-      expect(blackjack_hand_class)
+      expect(hand_class)
         .to receive(:new).exactly(3).times
 
       described_class.new(stdin,
                           stdout,
                           blackjack_class,
-                          blackjack_hand_class)
+                          hand_class)
     end
   end
 
@@ -36,7 +35,7 @@ describe CommandLineInterface do
         stdin,
         stdout,
         blackjack_class,
-        blackjack_hand_class)
+        hand_class)
       command_line_interface.play
     end
   end

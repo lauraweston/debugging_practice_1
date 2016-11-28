@@ -1,6 +1,6 @@
-require 'blackjack/blackjack_hand'
+require 'blackjack/hand'
 
-describe BlackjackHand do
+describe Hand do
   describe "#initialize" do
     subject { described_class.new }
 

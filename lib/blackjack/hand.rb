@@ -1,4 +1,4 @@
-class BlackjackHand
+class Hand
   CARDS = [:ace,
            :two,
            :three,

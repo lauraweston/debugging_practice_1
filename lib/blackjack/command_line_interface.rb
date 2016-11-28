@@ -4,10 +4,10 @@ class CommandLineInterface
   def initialize(input,
                  output,
                  blackjack_class,
-                 blackjack_hand_class)
+                 hand_class)
     @input = input
     @output = output
-    @blackjack_hand_class = blackjack_hand_class
+    @hand_class = hand_class
     @blackjack = blackjack_class.new(create_players)
   end
 
@@ -19,11 +19,11 @@ class CommandLineInterface
 
   private
 
-  attr_reader :input, :output, :blackjack, :blackjack_hand_class
+  attr_reader :input, :output, :blackjack, :hand_class
 
   def create_players
     get_player_count.times.collect do
-      blackjack_hand_class.new
+      hand_class.new
     end
   end
 

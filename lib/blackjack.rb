@@ -1,4 +1,4 @@
-require_relative "blackjack/blackjack_hand"
+require_relative "blackjack/hand"
 
 class Blackjack
   attr_reader :player_hands
