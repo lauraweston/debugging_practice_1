@@ -1,4 +1,6 @@
-class Interface
+require_relative "../blackjack"
+
+class CommandLineInterface
   def initialize(input,
                  output,
                  blackjack_class,
@@ -27,9 +29,9 @@ class Interface
 
   def get_player_count
     player_count = 0
-    until player_count > 0
-      @output.puts "How many players?"
-      player_count = @input.gets.to_i
+    until Blackjack.valid_player_count?(player_count)
+      output.puts "How many players?"
+      player_count = input.gets.to_i
     end
 
     player_count
@@ -37,9 +39,9 @@ class Interface
 
   def get_player_move
     player_move = nil
-    until [:hit, :stand].include?(player_move)
-      @output.puts "Hit or stand?"
-      player_move = @input.gets.to_sym
+    until Blackjack.valid_player_move?(player_move)
+      output.puts "Hit or stand?"
+      player_move = input.gets.to_sym
     end
 
     player_move

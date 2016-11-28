@@ -1,6 +1,6 @@
-require 'blackjack/interface'
+require 'blackjack/command_line_interface'
 
-describe Interface do
+describe CommandLineInterface do
   let(:stdin) { double(:stdin) }
   let(:stdout) { double(:stdout) }
   let(:blackjack) { double(:blackjack) }
@@ -32,11 +32,12 @@ describe Interface do
         .to receive(:winner?).and_return(false, false, true)
       expect(blackjack).to receive(:play_move).exactly(2).times
 
-      interface = described_class.new(stdin,
-                                      stdout,
-                                      blackjack_class,
-                                      blackjack_hand_class)
-      interface.play
+      command_line_interface = described_class.new(
+        stdin,
+        stdout,
+        blackjack_class,
+        blackjack_hand_class)
+      command_line_interface.play
     end
   end
 end
