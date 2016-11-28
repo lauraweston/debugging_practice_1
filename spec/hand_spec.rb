@@ -1,10 +1,15 @@
 require 'blackjack/hand'
+require 'blackjack/card_factory'
+
+def create_cards(cards)
+  cards.map { |symbol| CardFactory.create(symbol) }
+end
 
 describe Hand do
   describe "#initialize" do
     subject { described_class.new }
 
-    it "hand has no cards when first created" do
+    it "has no cards when first created" do
       expect(subject.cards).to be_empty
     end
   end
@@ -20,19 +25,19 @@ describe Hand do
 
     it "deals a random card" do
       subject = described_class.new
-      expect(subject.hit).to eq(:king)
+      expect(subject.hit.symbol).to eq(:king)
     end
 
     it "stores the dealt card" do
       subject.hit
-      expect(subject.cards).to eq([:king])
+      expect(subject.cards[0].symbol).to eq(:king)
     end
 
     it "stores multiple dealt cards" do
       subject.hit
       subject.hit
 
-      expect(subject.cards).to eq([:king, :six])
+      expect(subject.cards.map(&:symbol)).to eq([:king, :six])
     end
 
     it "raises if hit when standing" do
@@ -41,7 +46,8 @@ describe Hand do
     end
 
     it "raises if hit when bust" do
-      subject = described_class.new([:king, :king, :king])
+      subject = described_class.new(
+        create_cards([:king, :king, :king]))
       expect { subject.hit }.to raise_error "You're bust"
     end
   end
@@ -55,27 +61,32 @@ describe Hand do
 
   describe "#score" do
     it "reports score for hand without aces" do
-      subject = described_class.new([:king, :queen])
+      subject = described_class.new(
+        create_cards([:king, :queen]))
       expect(subject.score).to be(20)
     end
 
     it "reports min score for hand with ace that prevents bust" do
-      subject = described_class.new([:king, :queen, :ace])
+      subject = described_class.new(
+        create_cards([:king, :queen, :ace]))
       expect(subject.score).to be(21)
     end
 
     it "reports minimum score for bust hand with aces" do
-      subject = described_class.new([:king, :queen, :ace, :ace])
+      subject = described_class.new(
+        create_cards([:king, :queen, :ace, :ace]))
       expect(subject.score).to be(22)
     end
 
     it "reports maximum score for unbust hand with ace" do
-      subject = described_class.new([:ace, :king])
+      subject = described_class.new(
+        create_cards([:ace, :king]))
       expect(subject.score).to be(21)
     end
 
     it "reports unbust score for hand with many aces" do
-      subject = described_class.new([:ace, :ace, :ace, :ace, :ace])
+      subject = described_class.new(
+        create_cards([:ace, :ace, :ace, :ace, :ace]))
       expect(subject.score).to be(15)
     end
   end
@@ -93,7 +104,8 @@ describe Hand do
     end
 
     it "reports bust if player goes over 21" do
-      subject = described_class.new([:king, :queen, :six])
+      subject = described_class.new(
+        create_cards([:king, :queen, :six]))
       expect(subject.status).to be(:bust)
     end
   end
