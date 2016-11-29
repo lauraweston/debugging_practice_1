@@ -3,7 +3,7 @@ require_relative "./card_list"
 class Hand
   attr_reader :card_list
 
-  def initialize(card_list)
+  def initialize(card_list=CardList.new)
     @card_list = card_list
     @standing = false
   end
