@@ -8,6 +8,7 @@ class CommandLineInterface
                  hand_class=Hand)
     @input = input
     @output = output
+    @blackjack_class = blackjack_class
     @hand_class = hand_class
     @blackjack = blackjack_class.new(create_hands)
   end
@@ -20,7 +21,8 @@ class CommandLineInterface
 
   private
 
-  attr_reader :input, :output, :blackjack, :hand_class
+  attr_reader :input, :output,
+              :blackjack, :blackjack_class, :hand_class
 
   def create_hands
     get_hand_count.times.collect do
@@ -40,7 +42,7 @@ class CommandLineInterface
 
   def get_move
     move = nil
-    until Blackjack.valid_move?(move)
+    until blackjack_class.valid_move?(move)
       output.puts "Hit or stand?"
       move = input.gets.to_sym
     end

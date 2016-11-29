@@ -6,6 +6,7 @@ describe CommandLineInterface do
   let(:blackjack) { double(:blackjack) }
   let(:hand) { double(:hand) }
   let(:blackjack_class) { double(:blackjack_class,
+                                 valid_move?: true,
                                  new: blackjack) }
   let(:hand_class) { double(:hand_class, new: hand) }
 
