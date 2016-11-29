@@ -1,10 +1,11 @@
+require_relative "../blackjack/hand"
 require_relative "../blackjack"
 
 class CommandLineInterface
   def initialize(input,
                  output,
-                 blackjack_class,
-                 hand_class)
+                 blackjack_class=Blackjack,
+                 hand_class=Hand)
     @input = input
     @output = output
     @hand_class = hand_class
