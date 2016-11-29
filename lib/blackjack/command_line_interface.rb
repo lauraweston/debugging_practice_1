@@ -12,7 +12,7 @@ class CommandLineInterface
   end
 
   def play
-    until blackjack.winner?
+    until blackjack.winner
       blackjack.play_move(get_player_move)
     end
   end

@@ -1,12 +1,14 @@
-class NonAceCard
+require_relative "./card"
+
+class NonAceCard < Card
   attr_reader :symbol
 
   def initialize(symbol)
     @symbol = symbol
   end
 
-  def score(_, _)
-    SCORES[symbol]
+  def possible_scores
+    [SCORES[symbol]]
   end
 
   private
@@ -16,4 +18,8 @@ class NonAceCard
     seven: 7, eight: 8, nine: 9, ten: 10, jack: 10,
     queen: 10, king: 10
   }
+
+  SCORES.keys.each do |symbol|
+    Card.register_card_creator(symbol, self)
+  end
 end

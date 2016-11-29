@@ -28,7 +28,7 @@ describe CommandLineInterface do
       allow(stdout).to receive(:puts)
       allow(stdin).to receive(:gets).and_return(1, "stand")
       allow(blackjack)
-        .to receive(:winner?).and_return(false, false, true)
+        .to receive(:winner).and_return(nil, nil, :winner)
       expect(blackjack).to receive(:play_move).exactly(2).times
 
       command_line_interface = described_class.new(

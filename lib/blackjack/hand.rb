@@ -1,46 +1,52 @@
-require_relative "./card_factory"
+require_relative "./card_list"
 
 class Hand
-  attr_reader :cards
+  attr_reader :card_list
 
-  def initialize(cards = [])
-    @cards = cards
+  def initialize(card_list)
+    @card_list = card_list
     @standing = false
   end
 
-  def hit
-    raise "You're standing" if status == :standing
-    raise "You're bust" if status == :bust
-
-    new_card = CardFactory.random
-    cards << new_card
-    new_card
+  def hit(card_class=Card)
+    raise "You're standing" if standing?
+    raise "You're bust" if bust?
+    card_list.add(card_class.random)
   end
 
   def stand
     self.standing = true
   end
 
-  def status
-    return :bust if bust?
-    return :standing if standing
-    :playing
-  end
-
   def score
-    cards.inject(0) do |total, card|
-      total + card.score(total, MAX_SCORE_BEFORE_BUST)
-    end
+    card_list.scores.inject(0) { |total, possible_scores|
+      total + best_score(possible_scores, total)
+    }
   end
 
-  private
-
-  attr_accessor :standing
-  attr_writer :cards
-
-  MAX_SCORE_BEFORE_BUST = 21
+  def standing?
+    standing == true
+  end
 
   def bust?
     score > MAX_SCORE_BEFORE_BUST
   end
+
+  def valid_plays
+    return [] if standing? || bust?
+    [:hit, :stand]
+  end
+
+  private
+
+  def best_score(possible_scores, total_so_far)
+    (total_so_far + possible_scores.max <= MAX_SCORE_BEFORE_BUST ?
+       possible_scores.max :
+       possible_scores.min)
+  end
+
+  attr_accessor :standing
+  attr_writer :card_list
+
+  MAX_SCORE_BEFORE_BUST = 21
 end

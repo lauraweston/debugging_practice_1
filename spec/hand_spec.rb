@@ -1,20 +1,18 @@
 require 'blackjack/hand'
-require 'blackjack/card_factory'
-
-def create_cards(cards)
-  cards.map { |symbol| CardFactory.create(symbol) }
-end
 
 describe Hand do
   describe "#initialize" do
-    subject { described_class.new }
+    let(:card_list) { double(:card_list) }
+    subject { described_class.new(card_list) }
 
-    it "has no cards when first created" do
-      expect(subject.cards).to be_empty
+    it "takes and stores card list" do
+      expect(subject.card_list).to eq(card_list)
     end
   end
 
   describe "#hit" do
+    let(:card_class) { double(:card_class) }
+
     before :each do
       srand(0)
     end
@@ -23,90 +21,79 @@ describe Hand do
       srand
     end
 
-    it "deals a random card" do
-      subject = described_class.new
-      expect(subject.hit.symbol).to eq(:king)
-    end
+    it "adds a random card to the card list" do
+      card_list = double(:card_list, scores: [])
+      subject = described_class.new(card_list)
 
-    it "stores the dealt card" do
-      subject.hit
-      expect(subject.cards[0].symbol).to eq(:king)
-    end
+      expect(card_list).to receive(:add)
+      expect(card_class).to receive(:random)
 
-    it "stores multiple dealt cards" do
-      subject.hit
-      subject.hit
-
-      expect(subject.cards.map(&:symbol)).to eq([:king, :six])
+      expect(subject.hit(card_class))
     end
 
     it "raises if hit when standing" do
+      card_list = double(:card_list, scores: [])
+      subject = described_class.new(card_list)
       subject.stand
+
       expect { subject.hit }.to raise_error "You're standing"
     end
 
     it "raises if hit when bust" do
-      subject = described_class.new(
-        create_cards([:king, :king, :king]))
+      card_list = double(:card_list, scores: [[10], [10], [10]])
+      subject = described_class.new(card_list)
       expect { subject.hit }.to raise_error "You're bust"
     end
   end
 
   describe "#stand" do
-    it "sets status to :standing" do
+    it "sets to standing" do
+      card_list = double(:card_list, scores: [])
+      subject = described_class.new(card_list)
+
       subject.stand
-      expect(subject.status).to be(:standing)
+
+      expect(subject.standing?).to be(true)
     end
   end
 
   describe "#score" do
     it "reports score for hand without aces" do
-      subject = described_class.new(
-        create_cards([:king, :queen]))
+      card_list = double(:card_list, scores: [[10], [10]])
+      subject = described_class.new(card_list)
       expect(subject.score).to be(20)
     end
 
     it "reports min score for hand with ace that prevents bust" do
-      subject = described_class.new(
-        create_cards([:king, :queen, :ace]))
+      card_list = double(:card_list,
+                         scores: [[10], [10], [1, 11]])
+      subject = described_class.new(card_list)
       expect(subject.score).to be(21)
     end
 
     it "reports minimum score for bust hand with aces" do
-      subject = described_class.new(
-        create_cards([:king, :queen, :ace, :ace]))
+      card_list = double(:card_list,
+                         scores: [[10], [10], [1, 11], [1, 11]])
+      subject = described_class.new(card_list)
       expect(subject.score).to be(22)
     end
 
     it "reports maximum score for unbust hand with ace" do
-      subject = described_class.new(
-        create_cards([:ace, :king]))
+      card_list = double(:card_list,
+                         scores: [[1, 11], [10]])
+      subject = described_class.new(card_list)
+
       expect(subject.score).to be(21)
     end
 
     it "reports unbust score for hand with many aces" do
-      subject = described_class.new(
-        create_cards([:ace, :ace, :ace, :ace, :ace]))
+      card_list = double(:card_list, scores: [[1, 11],
+                                              [1, 11],
+                                              [1, 11],
+                                              [1, 11],
+                                              [1, 11]])
+      subject = described_class.new(card_list)
       expect(subject.score).to be(15)
-    end
-  end
-
-  describe "#status" do
-    it "initially reports playing" do
-      subject = described_class.new
-      expect(subject.status).to be(:playing)
-    end
-
-    it "reports standing when player stands" do
-      subject = described_class.new
-      subject.stand
-      expect(subject.status).to be(:standing)
-    end
-
-    it "reports bust if player goes over 21" do
-      subject = described_class.new(
-        create_cards([:king, :queen, :six]))
-      expect(subject.status).to be(:bust)
     end
   end
 end

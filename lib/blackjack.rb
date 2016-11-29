@@ -1,10 +1,8 @@
 require_relative "blackjack/hand"
 
 class Blackjack
-  attr_reader :player_hands
-
-  def initialize(player_hands)
-    @player_hands = player_hands
+  def initialize(hands)
+    @hands = hands
   end
 
   def self.valid_player_move?(move)
@@ -16,32 +14,36 @@ class Blackjack
   end
 
   def play_move(move)
-    raise "Game is over" if winner?
     raise "Invalid move" unless self.class.valid_player_move?(move)
+    raise "Game is over" if winner
 
-    current_player_hand.send(move)
-    current_player_hand.status
-  end
-
-  def winner?
-    not winner.nil?
+    next_hand.send(move)
   end
 
   def winner
-    return nil if game_still_going?
+    return nil if not game_over?
 
-    @player_hands
-      .select { |hand| hand.status == :standing }
-      .sort { |hand_1, hand_2| hand_2.score <=> hand_1.score }[0]
+    hands
+      .select(&:standing?)
+      .reject(&:bust?)
+      .sort { |hand_1, hand_2| hand_2.score <=> hand_1.score }
+      .first
   end
 
   private
 
-  def game_still_going?
-    @player_hands.any? { |hand| hand.status == :playing }
+  attr_reader :hands
+
+  def game_over?
+    hands.all? { |hand| hand.standing? || hand.bust? }
   end
 
-  def current_player_hand
-    @player_hands[0]
+  def next_hand
+    hands
+      .reject(&:standing?)
+      .reject(&:bust?)
+      .sort { |hand_1, hand_2|
+        hand_1.card_list.count <=> hand_2.card_list.count
+      }.first
   end
 end
