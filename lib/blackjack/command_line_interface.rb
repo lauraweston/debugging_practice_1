@@ -9,12 +9,12 @@ class CommandLineInterface
     @input = input
     @output = output
     @hand_class = hand_class
-    @blackjack = blackjack_class.new(create_players)
+    @blackjack = blackjack_class.new(create_hands)
   end
 
   def play
     until blackjack.winner
-      blackjack.play_move(get_player_move)
+      blackjack.play_move(get_move)
     end
   end
 
@@ -22,29 +22,29 @@ class CommandLineInterface
 
   attr_reader :input, :output, :blackjack, :hand_class
 
-  def create_players
-    get_player_count.times.collect do
+  def create_hands
+    get_hand_count.times.collect do
       hand_class.new
     end
   end
 
-  def get_player_count
-    player_count = 0
-    until Blackjack.valid_player_count?(player_count)
+  def get_hand_count
+    hand_count = 0
+    until hand_count > 0
       output.puts "How many players?"
-      player_count = input.gets.to_i
+      hand_count = input.gets.to_i
     end
 
-    player_count
+    hand_count
   end
 
-  def get_player_move
-    player_move = nil
-    until Blackjack.valid_player_move?(player_move)
+  def get_move
+    move = nil
+    until Blackjack.valid_move?(move)
       output.puts "Hit or stand?"
-      player_move = input.gets.to_sym
+      move = input.gets.to_sym
     end
 
-    player_move
+    move
   end
 end

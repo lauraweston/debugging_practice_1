@@ -5,16 +5,12 @@ class Blackjack
     @hands = hands
   end
 
-  def self.valid_player_move?(move)
+  def self.valid_move?(move)
     [:hit, :stand].include?(move)
   end
 
-  def self.valid_player_count?(count)
-    count > 0
-  end
-
   def play_move(move)
-    raise "Invalid move" unless self.class.valid_player_move?(move)
+    raise "Invalid move" unless self.class.valid_move?(move)
     raise "Game is over" if winner
 
     next_hand.send(move)
