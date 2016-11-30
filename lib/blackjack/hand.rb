@@ -34,11 +34,6 @@ class Hand
     score > MAX_SCORE_BEFORE_BUST
   end
 
-  def valid_plays
-    return [] if standing? || bust?
-    [:hit, :stand]
-  end
-
   private
 
   def best_score(possible_scores, total_so_far)
