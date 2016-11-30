@@ -6,6 +6,7 @@ class CommandLineInterface
     @output = output
     @game = game
     @game.add_players(get_player_count)
+    play
   end
 
   def play

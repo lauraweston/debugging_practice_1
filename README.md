@@ -31,8 +31,7 @@ The goal is to get all the tests in the `spec/` directory passing.
 If you need to run the project, start IRB and type in:
 
 ```ruby
-require_relative("./blackjack/command_line_interface")
+require_relative("./lib/blackjack/command_line_interface")
 
-cli = CommandLineInterface.new(STDIN, STDOUT, Game.new)
-cli.play
+CommandLineInterface.new(STDIN, STDOUT, Game.new)
 ```
