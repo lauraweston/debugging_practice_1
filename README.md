@@ -18,10 +18,10 @@ The goal is to get all the tests in the `spec/` directory passing.
 
 6. To help you debug, feel free to add more tests.
 
-7. To check that your debugged code will be assessed as correct by Travis, run `rake verify`.  This runs a clean version of the tests.  If all these tests pass, you've successfully debugged the repo.
+7. To check that your debugged code will be assessed as correctly debugged by Travis, run `rake verify`.  This runs a clean version of the tests.  If all these tests pass, you've successfully debugged the repo.
 
 8. Make a pull request to this repo to submit your solution to the exercise.
 
-## Things to watch out for
+## Note
 
 * Don't change the files in the `.spec_verify/` directory.
