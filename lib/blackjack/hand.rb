@@ -7,7 +7,7 @@ class Hand
 
   def initialize(card_list=CardList.new)
     @card_list = card_list
-    @standing = true
+    @standing = false
   end
 
   def hit(card_class=Card)
