@@ -22,7 +22,7 @@ class Game
   end
 
   def over?
-    blackjack.game_over
+    blackjack.game_over?
   end
 
   def winner?
