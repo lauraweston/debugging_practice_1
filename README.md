@@ -25,3 +25,14 @@ The goal is to get all the tests in the `spec/` directory passing.
 ## Note
 
 * Don't change the files in the `.spec_verify/` directory.
+
+## Run the project
+
+If you need to run the project, start IRB and type in:
+
+```ruby
+require_relative("./blackjack/command_line_interface")
+
+cli = CommandLineInterface.new(STDIN, STDOUT, Game.new)
+cli.play
+```
