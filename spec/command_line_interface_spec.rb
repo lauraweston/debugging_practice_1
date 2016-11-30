@@ -3,23 +3,15 @@ require 'blackjack/command_line_interface'
 describe CommandLineInterface do
   let(:stdin) { double(:stdin) }
   let(:stdout) { double(:stdout) }
-  let(:blackjack) { double(:blackjack) }
-  let(:hand) { double(:hand) }
-  let(:blackjack_class) { double(:blackjack_class,
-                                 new: blackjack) }
-  let(:hand_class) { double(:hand_class, new: hand) }
+  let(:game) { double(:game) }
 
   describe "::new" do
     it "creates a new Blackjack game with three players" do
       allow(stdout).to receive(:puts)
       allow(stdin).to receive(:gets).and_return(3)
-      expect(hand_class)
-        .to receive(:new).exactly(3).times
+      expect(game).to receive(:add_players)
 
-      described_class.new(stdin,
-                          stdout,
-                          blackjack_class,
-                          hand_class)
+      described_class.new(stdin, stdout, game)
     end
   end
 
@@ -29,20 +21,20 @@ describe CommandLineInterface do
 
       allow(stdout).to receive(:puts)
       allow(stdin).to receive(:gets).and_return(1, "stand")
-      allow(blackjack)
-        .to receive(:valid_move?).and_return(true)
-      allow(blackjack)
-        .to receive(:game_over?).and_return(false, false, true)
-      allow(blackjack).to receive(:winner).and_return(:winner)
 
-      expect(blackjack).to receive(:play_move).exactly(2).times
-                            .and_return(king)
+      allow(game).to receive(:add_players)
+      allow(game)
+        .to receive(:over?).and_return(false, false, true)
+      allow(game).to receive(:winner?).and_return(true)
+      allow(game).to receive(:winner_name).and_return(:winner)
+
+      expect(game).to receive(:play_move).exactly(2).times
+                       .and_return(king)
 
       command_line_interface = described_class.new(
         stdin,
         stdout,
-        blackjack_class,
-        hand_class)
+        game)
       command_line_interface.play
     end
   end
