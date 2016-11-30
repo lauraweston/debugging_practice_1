@@ -22,7 +22,7 @@ class CommandLineInterface
 
   def play_move
     move = get_move
-    game.play_move(move)
+    card = game.play_move(move)
 
     if move == :hit
       output.puts describe_card(card)
