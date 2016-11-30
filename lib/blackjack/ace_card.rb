@@ -16,5 +16,5 @@ class AceCard < Card
   Card.register_card_creator(:ace, self)
 
   LOW_SCORE = 1
-  HIGH_SCORE = 10
+  HIGH_SCORE = 11
 end
