@@ -21,9 +21,9 @@ class Hand
   end
 
   def score
-    card_list.scores.inject(0) { |total, possible_scores|
+    card_list.scores.inject(0) do |total, possible_scores|
       total + best_score(possible_scores, total)
-    }
+    end
   end
 
   def standing?
