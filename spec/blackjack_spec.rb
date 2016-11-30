@@ -88,8 +88,8 @@ describe Blackjack do
 
     it "returns standing player when other players bust" do
       hand_1 = double(:hand_1, standing?: true, bust?: false)
-      hand_2 = double(:hand_2, standing?: true, bust?: true)
-      hand_3 = double(:hand_3, standing?: true, bust?: true)
+      hand_2 = double(:hand_2, standing?: false, bust?: true)
+      hand_3 = double(:hand_3, standing?: false, bust?: true)
 
       subject = described_class.new([hand_1, hand_2, hand_3])
       expect(subject.winner).to be(hand_1)
@@ -113,6 +113,41 @@ describe Blackjack do
 
       subject = described_class.new([hand_1, hand_2])
       expect(subject.winner).to be_nil
+    end
+
+    it "returns no winner when everyone went bust" do
+      hand_1 = double(:hand_1, standing?: false, bust?: true)
+      hand_2 = double(:hand_2, standing?: false, bust?: true)
+
+      subject = described_class.new([hand_1, hand_2])
+      expect(subject.winner).to be_nil
+    end
+  end
+
+  describe "#game_over" do
+    it "returns true when only player standing" do
+      hand = double(:hand, standing?: true, bust?: false)
+      subject = described_class.new([hand])
+      expect(subject.game_over?).to be(true)
+    end
+
+    it "returns true when players either standing or bust" do
+      hand_1 = double(:hand_1, standing?: true, bust?: false)
+      hand_2 = double(:hand_2, standing?: false, bust?: true)
+      hand_3 = double(:hand_3, standing?: true, bust?: true)
+
+      subject = described_class.new([hand_1, hand_2, hand_3])
+      expect(subject.game_over?).to be(true)
+    end
+
+    it "returns false when a player still playing" do
+      hand_1 = double(:hand_1, standing?: true, bust?: false,
+                      score: 20)
+      hand_2 = double(:hand_2, standing?: false, bust?: false,
+                      score: 21)
+
+      subject = described_class.new([hand_1, hand_2])
+      expect(subject.game_over?).to be(false)
     end
   end
 end

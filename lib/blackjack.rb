@@ -5,12 +5,8 @@ class Blackjack
     @hands = hands
   end
 
-  def self.valid_move?(move)
-    [:hit, :stand].include?(move)
-  end
-
   def play_move(move)
-    raise "Invalid move" unless self.class.valid_move?(move)
+    raise "Invalid move" unless valid_move?(move)
     raise "Game is over" if winner
 
     next_hand.send(move)
@@ -26,13 +22,17 @@ class Blackjack
       .first
   end
 
-  private
-
-  attr_reader :hands
-
   def game_over?
     hands.all? { |hand| hand.standing? || hand.bust? }
   end
+
+  def valid_move?(move)
+    [:hit, :stand].include?(move)
+  end
+
+  private
+
+  attr_reader :hands
 
   def next_hand
     hands

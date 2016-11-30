@@ -1,4 +1,6 @@
 require_relative "./card_list"
+require_relative "./ace_card"
+require_relative "./non_ace_card"
 
 class Hand
   attr_reader :card_list
