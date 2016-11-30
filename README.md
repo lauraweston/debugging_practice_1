@@ -22,7 +22,9 @@ The goal is to get all the tests in the `spec/` directory passing.
 
 8. Make a pull request to this repo to submit your solution to the exercise.
 
-## Note
+## Notes
+
+* You can assume the tests correctly specify the desired behaviour.
 
 * Don't change the files in the `.spec_verify/` directory.
 
