@@ -4,8 +4,6 @@ Time limit: 60 minutes
 
 You can use this exercise to practice and assess your debugging skill.
 
-If you submit a solution to this exercise, Makers Academy will be able to use it to assess your debugging skill, and also offer you guidance on how to improve.
-
 ## Instructions
 
 The goal is to get all the tests in the `spec/` directory passing.
