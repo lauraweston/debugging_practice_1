@@ -1,6 +1,6 @@
 # Debugging practice
 
-Time limit: 30 minutes
+Time limit: 60 minutes
 
 You can use this exercise to practice and assess your debugging skill.
 
