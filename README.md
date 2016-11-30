@@ -12,15 +12,17 @@ The goal is to get all the tests in the `spec/` directory passing.
 
 2. Clone your fork to your machine.
 
-2. Run the tests by running `rspec` in the root of the repo.
+3. Install the dependencies by running `bundle` in the root of the repo.
 
-3. Get all the tests in `spec/` passing within the time limit (at the top of this file).
+4. Run the tests by running `rspec` in the root of the repo.
 
-4. To help you debug, feel free to add more tests.
+5. Get all the tests in `spec/` passing within the time limit (at the top of this file).
 
-5. To check that your debugged code will be assessed as correct by Travis, run `rake verify`.  This runs a clean version of the tests.  If all these tests pass, you've successfully debugged the repo.
+6. To help you debug, feel free to add more tests.
 
-6. Make a pull request to this repo to submit your solution to the exercise.
+7. To check that your debugged code will be assessed as correct by Travis, run `rake verify`.  This runs a clean version of the tests.  If all these tests pass, you've successfully debugged the repo.
+
+8. Make a pull request to this repo to submit your solution to the exercise.
 
 ## Things to watch out for
 
