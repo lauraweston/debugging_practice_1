@@ -4,7 +4,7 @@ class Players
   end
 
   def name(hand)
-    # hands.find_index(hand)
+    hands.find_index(hand)
   end
 
   private
