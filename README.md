@@ -1,7 +1,5 @@
 # Debugging practice
 
-Time limit: 60 minutes
-
 You can use this exercise to practice and assess your debugging skill.
 
 ## Instructions
@@ -16,7 +14,7 @@ The goal is to get all the tests in the `spec/` directory passing.
 
 4. Run the tests by running `rspec` in the root of the repo.
 
-5. Get all the tests in `spec/` passing within the time limit (at the top of this file).
+5. Get all the tests in `spec/` passing.
 
 6. To help you debug, feel free to add more tests.
 
